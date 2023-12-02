@@ -1,0 +1,81 @@
+---
+
+- name: CUCM-_           - 1 SPACES    
+  hosts: cucm             2 SPACES
+  gather_facts: false     2 SPACES
+  connection: local       2 SPACES
+  tasks:                  2 SPACES
+    - name: ANALOG        4 SPACES - 1 SPACES
+      telnet:             6 SPACES
+        user: admin       8 SPACES
+        password: pass     8 SPACES
+        login_prompt: "Username: "   8 SPACES
+        prompts:                     8 SPACES
+          - '[>|#]'        10 SPACES
+        command:            8 SPACES
+          - terminal length 0      10 SPACES
+          - enable
+          - config t
+          - configure terminal
+          - dial-peer voice 1 pots
+          - destination-pattern _10
+          - port 0/0/0
+          - dial-peer voice 2 pots
+          - destination-pattern _20
+          - port 0/0/1
+          - dial-peer voice 3 pots
+          - destination-pattern _30
+          - port 0/0/2
+          - dial-peer voice 4 pots
+          - destination-pattern _40
+          - port 0/0/3
+          - end
+		  
+		  
+#MULTIPLE HOSTS
+
+---
+
+- name: CSR-
+  hosts:
+    - csr         4 SPACES
+    - csr1        4 SPACES
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: CSR 1000v
+      telnet:
+        user: admin
+        password: password
+        login_prompt: "Username: "
+        prompts:
+          - '[>|#]'
+        command:
+          - terminal length 0
+          - enable
+          - config t
+          - hostname WAWA
+
+
+
+---
+
+- name: CSR-
+  hosts:
+    - csr         4 SPACES
+    - csr1        4 SPACES
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: CSR 1000v
+      telnet:
+        user: admin
+        password: password
+        login_prompt: "Username: "
+        prompts:
+          - '[>|#]'
+        command:
+          - terminal length 0
+          - enable
+          - sh ip int br or sh run
+		  
